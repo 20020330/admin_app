@@ -25,6 +25,16 @@ f (isset($_POST["btn_submit"])) {
     $newPassword = password_hash($password, PASSWORD_BCRYPT);
     $dbConn->query("update user set password = '$newPassword'
                     where email = '$email'");
+    //hủy token
+    $dbConn->query("update reset_password set 
+                    is_available = 0 
+                    where email = '$email'
+                    and token = '$token' ");
+
+    session_start();
+    session_destroy();
+
+    header("Location: login.php");                
 
 ?>
 <!DOCTYPE html>
