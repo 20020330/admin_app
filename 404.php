@@ -35,6 +35,27 @@
             transform-box: fill-box;
 
         }
+        @keyframes swing {
+            0% {
+                transform: rotate(10deg);
+            }
+
+            100% {
+                transform: rotate(-10deg);
+            }
+        }
+
+
+        /*************swing hair************/
+        @keyframes swinghair {
+            0% {
+                transform: rotate(6deg);
+            }
+
+            100% {
+                transform: rotate(-6deg);
+            }
+        }
     </style>    
 </head>
 <body>
