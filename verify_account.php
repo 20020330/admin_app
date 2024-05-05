@@ -1,5 +1,10 @@
 <?php
 include_once("./db/connection.php");
+if (empty($email)) {
+    // header("Location: 404.php");
+    // exit();
+    echo "empty";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
