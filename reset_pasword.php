@@ -1,5 +1,16 @@
 <?php
 include_once("./db/connection.php");
+f (isset($_POST["btn_submit"])) {
+    //POST
+    $email = $_POST["email"];
+    $token = $_POST["token"];
+    $password = $_POST["new_password"];
+    $confirmPassword = $_POST["confirm_password"];
+
+    if (empty($email) || empty($token)) {
+        header("Location: 404.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
