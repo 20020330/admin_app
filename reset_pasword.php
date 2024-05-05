@@ -34,7 +34,28 @@ f (isset($_POST["btn_submit"])) {
     session_start();
     session_destroy();
 
-    header("Location: login.php");                
+    header("Location: login.php"); 
+} else {
+    //GET
+    $email = $_GET["email"];
+    $token = $_GET["token"];
+
+    if (empty($email) || empty($token)) {
+        header("Location: 404.php");
+        exit();
+    }
+
+    $result = $dbConn->query("SELECT id_user FROM reset_password
+                                WHERE email like '$email' AND token like '$token'
+                                AND create_at >= DATE_SUB(NOW(), INTERVAL 1 HOUR)
+                                AND is_available = 1");
+
+    $user = $result->fetch(PDO::FETCH_ASSOC);
+    if (!$user) {
+        header("Location: 404.php");
+        exit();
+    }
+}                   
 
 ?>
 <!DOCTYPE html>
