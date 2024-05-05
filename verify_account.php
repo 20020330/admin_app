@@ -5,6 +5,22 @@ if (empty($email)) {
     // exit();
     echo "empty";
 }
+try {
+    $result = $dbConn->query("SELECT id FROM user
+    WHERE email like '$email' AND isVerify = 0;");
+
+    $user = $result->fetch(PDO::FETCH_ASSOC);
+    if (!$user) {
+        header("Location: 404.php");
+        exit();
+    } else {
+        $dbConn->query("UPDATE user SET isVerify = 1 WHERE id ='" . $user['id'] . "';");
+    }
+} catch (Exception $e) {
+    header("Location: 404.php");
+    exit();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
