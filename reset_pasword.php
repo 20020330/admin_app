@@ -1,6 +1,7 @@
 <?php
 include_once("./db/connection.php");
-f (isset($_POST["btn_submit"])) {
+
+if (isset($_POST["btn_submit"])) {
     //POST
     $email = $_POST["email"];
     $token = $_POST["token"];
@@ -11,6 +12,7 @@ f (isset($_POST["btn_submit"])) {
         header("Location: 404.php");
         exit();
     }
+
     $result = $dbConn->query("SELECT id_user FROM reset_password
                                 WHERE email like '$email' AND token like '$token'
                                 AND create_at >= DATE_SUB(NOW(), INTERVAL 1 HOUR)
@@ -25,6 +27,7 @@ f (isset($_POST["btn_submit"])) {
     $newPassword = password_hash($password, PASSWORD_BCRYPT);
     $dbConn->query("update user set password = '$newPassword'
                     where email = '$email'");
+
     //hủy token
     $dbConn->query("update reset_password set 
                     is_available = 0 
@@ -34,7 +37,7 @@ f (isset($_POST["btn_submit"])) {
     session_start();
     session_destroy();
 
-    header("Location: login.php"); 
+    header("Location: login.php");
 } else {
     //GET
     $email = $_GET["email"];
@@ -55,7 +58,7 @@ f (isset($_POST["btn_submit"])) {
         header("Location: 404.php");
         exit();
     }
-}                   
+}
 
 ?>
 <!DOCTYPE html>
@@ -147,8 +150,8 @@ f (isset($_POST["btn_submit"])) {
         </div>
     </footer>
     <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
- <!--   Core JS Files   -->
- <script src="./assets/js/core/popper.min.js"></script>
+    <!--   Core JS Files   -->
+    <script src="./assets/js/core/popper.min.js"></script>
     <script src="./assets/js/core/bootstrap.min.js"></script>
     <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
